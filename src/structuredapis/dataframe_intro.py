@@ -4,8 +4,6 @@ from pyspark.sql.functions import desc
 if __name__ == "__main__": 
     spark = SparkSession.builder.appName("DataFrameIntro").getOrCreate()
     flights_df = spark.read.csv("/Users/bapu/Public/SourceData/flights_data/2015-summary.csv", header=True, inferSchema=True)
-    # partitioned_df = flights_df.repartition(3)
-    # num_parititons = partitioned_df.rdd.getNumPartitions()
     transformed_df = (flights_df.groupBy("DEST_COUNTRY_NAME")
                       .sum("count")
                       .withColumnRenamed("sum(count)","destination_total")
