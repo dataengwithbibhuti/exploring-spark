@@ -9,6 +9,6 @@ if __name__ == "__main__":
                       .withColumnRenamed("sum(count)","destination_total")
                       .sort(desc("destination_total"))
                       .limit(5))
-    transformed_df.explain()
+    transformed_df.show()
 
     
