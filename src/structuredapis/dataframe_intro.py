@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import desc
 
+# Sample Spark Structured API Application
 if __name__ == "__main__": 
     spark = SparkSession.builder.appName("DataFrameIntro").getOrCreate()
     flights_df = spark.read.csv("/Users/bapu/Public/SourceData/flights_data/2015-summary.csv", header=True, inferSchema=True)
