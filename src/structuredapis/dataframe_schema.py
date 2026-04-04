@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
+from pyspark.sql.functions import *
 
 if __name__ == "__main__":
     spark = SparkSession.builder.appName("DataFrameIntro").getOrCreate()
@@ -23,5 +24,11 @@ if __name__ == "__main__":
     ])
     my_df = spark.createDataFrame(data, data_schema)
     my_df_ddl = spark.createDataFrame(data, ddl_schema)
-    my_df.show()
+
+    # Sort dataframes in different ways
+    sorted_df1 = my_df_ddl.sort(col("id").desc())
+    sorted_df2 = my_df_ddl.orderBy(desc(col("id")))
+
     my_df_ddl.show()
+    sorted_df1.show()
+    sorted_df2.show()
