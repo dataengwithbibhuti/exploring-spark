@@ -38,7 +38,6 @@ if __name__ == "__main__":
         StructField('Delay', FloatType(), True)]
     )
     fire_df = spark.read.schema(data_schema).csv("/Users/bapu/Public/SourceData/fire_calls/Fire_Incidents_20260404.csv")
-
     # Get number of partitions
     partition_numbers = fire_df.rdd.getNumPartitions()
 
