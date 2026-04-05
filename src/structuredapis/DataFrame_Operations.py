@@ -47,15 +47,33 @@ if __name__ == "__main__":
         count("*").alias("record_count")))
     partition_records_df.show()
 
+    # Filter data on CallType
+    filtered_df = fire_df.filter(col("CallType") != "Medical Incident")
+    filtered_df.show()
+
+    # Get distinct CallTypes
+    distinct_df = (fire_df
+                   .select("CallType")
+                   .filter(col("CallType").isNotNull())
+                   .agg(count_distinct(col("CallType")).alias("distinct_call_types"))
+                   )
+    distinct_df.show()
+
+
+
+
+
+
+
     # Check tables in catalog
-    tables = spark.catalog.listTables()
-    print(tables)
+    # tables = spark.catalog.listTables()
+    # print(tables)
+    #
+    # # Check if table exists
+    # isTableExists = spark.catalog.tableExists("default.fire_incidents")
+    # print(isTableExists)
+    #
+    # if isTableExists:
+    #     spark.sql("DROP TABLE default.fire_incidents")
 
-    # Check if table exists
-    isTableExists = spark.catalog.tableExists("default.fire_incidents")
-    print(isTableExists)
-
-    if isTableExists:
-        spark.sql("DROP TABLE default.fire_incidents")
-
-    fire_df.write.format("parquet").mode("overwrite").saveAsTable("fire_incidents")
+    # fire_df.write.format("parquet").mode("overwrite").saveAsTable("fire_incidents")
